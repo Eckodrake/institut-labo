@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Prestation;
 use App\Repository\CategoryRepository;
 use App\Repository\PrestationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController {
 	/**
-	 * @Route("/", name="home")
+	 * @Route("/", name="home.prestation.index")
 	 * @param CategoryRepository $repository
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
@@ -22,7 +21,7 @@ class HomeController extends AbstractController {
 	}
 
 	/**
-	 * @Route("/prestations/{slug}-{id}", name="prestation", requirements={"slug": "[a-z0-9\-]*"})
+	 * @Route("/prestations/{slug}-{id}", name="home.prestation.show", requirements={"slug": "[a-z0-9\-]*"})
 	 * @param CategoryRepository $category
 	 * @param PrestationRepository $prestation
 	 * @param string $slug
@@ -37,7 +36,7 @@ class HomeController extends AbstractController {
 		);
 
 		if ( $category->getSlug() !== $slug || $category->getId() !== $id ) :
-			return $this->redirectToRoute( 'prestation', [
+			return $this->redirectToRoute( 'home.prestation.show', [
 				'id'   => $category->getId(),
 				'slug' => $category->getSlug()
 			], 301 );

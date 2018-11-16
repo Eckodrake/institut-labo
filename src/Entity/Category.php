@@ -6,9 +6,13 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @Vich\Uploadable()
  */
 class Category {
 	/**
@@ -24,6 +28,13 @@ class Category {
 	private $name;
 
 	/**
+	 * @var File|null
+	 * @Vich\UploadableField(mapping="category_image", fileNameProperty="image")
+	 */
+	private $imageFile;
+
+	/**
+	 * @var string|null
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $image;
@@ -32,6 +43,11 @@ class Category {
 	 * @ORM\OneToMany(targetEntity="App\Entity\Prestation", mappedBy="category")
 	 */
 	private $prestations;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	private $updated_at;
 
 	public function __construct() {
 		$this->prestations = new ArrayCollection();
@@ -59,7 +75,7 @@ class Category {
 		return $this->image;
 	}
 
-	public function setImage( string $image ): self {
+	public function setImage(?string $image = null): self {
 		$this->image = $image;
 
 		return $this;
@@ -89,6 +105,37 @@ class Category {
 				$prestation->setCategory( null );
 			}
 		}
+
+		return $this;
+	}
+
+	/**
+	 * @return null|File
+	 */
+	public function getImageFile(): ?File {
+		return $this->imageFile;
+	}
+
+	/**
+	 * @param null|File $imageFile
+	 *
+	 * @return Category
+	 */
+	public function setImageFile( ?File $imageFile ): self {
+		$this->imageFile = $imageFile;
+		if ( $this->imageFile instanceof UploadedFile ) {
+			$this->updated_at = new \DateTime( 'now' );
+		}
+
+		return $this;
+	}
+
+	public function getUpdatedAt(): ?\DateTimeInterface {
+		return $this->updated_at;
+	}
+
+	public function setUpdatedAt( \DateTimeInterface $updated_at ): self {
+		$this->updated_at = $updated_at;
 
 		return $this;
 	}

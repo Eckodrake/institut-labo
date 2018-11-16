@@ -8,8 +8,7 @@
     <ul>
         {% for prestation in prestations %}
             <li>
-                {{ prestation.name }}
-                --- {{ prestation.price }}€
+                {{ prestation.name }} --- {{ prestation.price ~ '€' }}
             </li>
         {% endfor %}
     </ul>
