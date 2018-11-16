@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title category.name %}
+
+{% block body %}
+    <p>Les prestations de {{ category.name }} sont :</p>
+
+    <ul>
+        {% for prestation in prestations %}
+            <li>
+                {{ prestation.name }}
+                --- {{ prestation.price }}€
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
