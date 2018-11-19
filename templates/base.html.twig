@@ -16,14 +16,81 @@
         <link rel="manifest" href="{{ asset('/img/icons/site.webmanifest') }}">
         <link rel="mask-icon" href="{{ asset('/img/icons/safari-pinned-tab.svg') }}" color="#5bbad5">
         <link rel="shortcut icon" href="{{ asset('/img/icons/favicon.ico') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+              integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
 
         <title>{% block title '' %} ~ Institut Labo &laquo; T &raquo;</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <nav role="navigation" id="navbar" class="navbar navbar-expand-lg navbar-light navbar-fixed bg-light">
+            <a class="navbar-brand" href="{{ path('home.prestation.index') }}">
+                <img src="{{ asset('img/background/logo-nav.png') }}" alt="Institut Labo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto text-md-left text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home.prestation.index') }}">
+                            Accueil <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home.prestation.index') }}#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home.prestation.index') }}#contact">Contact</a>
+                    </li>
+                </ul>
+                {% if app.user %}
+                    <ul class="navbar-nav text-md-left text-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+        </nav>
+
         {% block body %}{% endblock %}
 
+        <footer role="contentinfo" class="container-fluid footer">
+            <div class="container my-md-0 my-3" style="min-height: inherit;">
+                <div class="row justify-content-center align-items-center text-md-left text-center" style="min-height: inherit;">
+                    <div class="col-md-4 d-flex flex-column align-items-md-end align-items-center footer-col">
+                        <div>Institut Labo &laquo; T &raquo;</div>
+                        <div>23 rue du bon conseil 7181 Arquennes</div>
+                        <div>Téléphone : 0498 54 59 07</div>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column text-center my-md-0 my-3 footer-col">
+                        <div>Copyright &copy; 2018 <a href="{{ path('admin.category.index') }}">Institutlabo-T</a></div>
+                        <div>
+                            <a href="https://www.facebook.com/CatherineChaufoureau/?eid=ARBiGMHMDCkGjsSKzc941JYHdxobgQxyHTA04jM5rHdtUfihRZ-SIM3a0zuquf_7biw4iEE9IqrMcmrL&timeline_context_item_type=intro_card_work&timeline_context_item_source=100008311311379&fref=tag"
+                               target="_blank">
+                                Rejoignez-nous sur <img src="{{ asset('img/background/facebook.png') }}" alt="Facebook">
+                            </a>
+                            -
+                            <a href="https://webdeval.be" target="_blank">Site réalisé par Webdeval</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column footer-col">
+                        <div>Sur rendez-vous :</div>
+                        <div>Du lundi au samedi de 09:30 à 20:00</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('dist/js/popovers.min.js') }}"></script>
         <script src="{{ asset('dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('dist/js/script.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

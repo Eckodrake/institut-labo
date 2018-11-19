@@ -1,0 +1,34 @@
+{
+  "name": "sf-institut",
+  "version": "1.0.0",
+  "description": "Institut de beauté",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Talenvni/institut-labo.git"
+  },
+  "keywords": [
+    "institut",
+    "beauté",
+    "arquennes",
+    "soin"
+  ],
+  "author": "Webdeval",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Talenvni/institut-labo/issues"
+  },
+  "homepage": "https://github.com/Talenvni/institut-labo#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-compass": "^2.1.0"
+  }
+}

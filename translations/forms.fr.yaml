@@ -1,3 +1,14 @@
 Name: Nom
+Message: Message
+Email: Email
 Category name: Nom de la catégorie
-Image: Image
+Image file: Image
+Visible: Visible
+yes: oui
+no: non
+Price: Prix
+Benefit name: Nom du service
+Benefit price: Prix du service
+Your name: Votre nom
+Insert email: example@domaine.ext
+Write your message: Insérez votre message

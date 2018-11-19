@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration - ' ~ prestation.name %}
+
+{% block body %}
+    <main role="main">
+        <section class="container">
+            <div class="row"><h1>{{ prestation.name }}</h1></div>
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.name) }}</div>
+                <div class="col-md-6">{{ form_row(form.price) }}</div>
+            </div>
+            <button class="btn btn-secondary" type="submit">Éditer</button>
+            {{ form_end(form) }}
+
+            <div class="row float-right clearfix">
+                <form method="post"
+                      action="{{ path('admin.prestation.delete', {id: prestation.id, slug: prestation.slug}) }}"
+                      onsubmit="return confirm('Supprimer la prestation ?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ prestation.id) }}">
+                    <button class="btn btn-danger" type="submit">Supprimer {{ prestation.name }}</button>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}

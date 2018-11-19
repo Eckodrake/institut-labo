@@ -3,11 +3,76 @@
 {% block title 'Accueil' %}
 
 {% block body %}
-    <div>
-        <h1>Hello!</h1>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success fixed-top">{{ message }}</div>
+    {% endfor %}
 
-        {% for category in categories %}
-            <a href="{{ path('home.prestation.show', {slug: category.slug, id: category.id}) }}">{{ category.name }}</a>
-        {% endfor %}
-    </div>
+    {% if not form.vars.valid %}
+        <div class="alert alert-danger">Erreur : impossible d'envoyer le formulaire de contact</div>
+    {% endif %}
+
+    <header role="banner" class="container-fluid header">
+        <div class="row justify-content-center align-items-center">
+            <img src="{{ asset('img/background/logo.png') }}" alt="Institut Labo Logo" class="img-fluid">
+        </div>
+    </header>
+
+    <main role="main">
+        <section id="services" class="container-fluid prestations">
+            <div class="row flex-column justify-content-center align-items-center my-5">
+                <h1 class="text-uppercase section-title">Services</h1>
+                <h2 class="h5">Découvrez chacune des catégories et leurs services.</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                {% for category in categories if category.visible == 1 %}
+                    <div class="col-md-3 p-0 m-0">
+                        <div class="prestations-relative">
+                            <img src="{{ asset('/img/categories/' ~ category.image) }}" alt="{{ category.image }}"
+                                 class="img-fluid prestations-img" width="380px" height="250px">
+                            <div class="prestations-mask"></div>
+                            <h2 class="prestations-mask-text">
+                                <a href="{{ path('home.prestation.show', {slug: category.slug, id: category.id}) }}">
+                                    {{ category.name }}
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="contact" class="container-fluid contact">
+            <div class="row justify-content-center pt-4 text-center text-md-left">
+                <div class="col-md-4 offset-md-1 mb-md-0 mb-3">
+                    <h2 class="text-uppercase contact-title">Horaires</h2>
+                    <ul class="list-unstyled">
+                        <li>Lundi : 09:30 - 20:00</li>
+                        <li>Mardi : 09:30 - 20:00</li>
+                        <li>Mercredi : 09:30 - 20:00</li>
+                        <li>Jeudi : 09:30 - 20:00</li>
+                        <li>Vendredi : 09:30 - 20:00</li>
+                        <li>Samedi : 09:30 - 20:00</li>
+                    </ul>
+                    <h2 class="text-uppercase contact-title">Réseaux</h2>
+                    <a href="https://www.facebook.com/CatherineChaufoureau/?eid=ARAYeovlAYMDjVgXd_AIs7YsZinTCDe38oSP9kR1moSEvUgyCn32emImvpkS8WSnfHyJTpEigTixhGre&timeline_context_item_type=intro_card_work&timeline_context_item_source=100008311311379&fref=tag" target="_blank">
+                        <i class="fab fa-facebook-square fa-2x"></i>
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    <h2 class="text-uppercase contact-title">Contacter</h2>
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.name) }}</div>
+                        <div class="col-md-6">{{ form_row(form.email) }}</div>
+                        <div class="col-12">{{ form_row(form.message) }}</div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" type="submit">Contacter</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock %}

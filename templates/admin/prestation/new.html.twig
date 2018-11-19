@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Nouveau service' %}
+
+{% block body %}
+    <main role="main">
+        <section class="container">
+            <div class="row"><h1>Nouveau service</h1></div>
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.name) }}</div>
+                <div class="col-md-6">{{ form_row(form.price) }}</div>
+            </div>
+            <button class="btn btn-secondary" type="submit">Créer service</button>
+            {{ form_end(form) }}
+        </section>
+    </main>
+{% endblock %}
+
+

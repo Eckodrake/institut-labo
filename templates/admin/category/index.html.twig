@@ -3,24 +3,74 @@
 {% block title 'Administration - Catégories' %}
 
 {% block body %}
-    <table>
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Nom</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for category in categories %}
-                <tr>
-                    <td><img src="{{ asset('/img/categories/' ~ category.image) }}" alt="{{ category.image }}"></td>
-                    <td>{{ category.name }}</td>
-                    <td>
-                        <a href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">Éditer</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <main role="main">
+        <section class="container-fluid admin-category">
+            <div class="row justify-content-center">
+                <h1 class="my-5">Catégories visibles</h1>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+
+                <table class="table table-bordered table-striped table-responsive-md">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories if category.visible == 1 %}
+                            <tr>
+                                <td class="text-center">
+                                    <img src="{{ asset('/img/categories/' ~ category.image) }}"
+                                         alt="{{ category.image }}" class="img-fluid">
+                                </td>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <a href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">Éditer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="mb-5">
+                    <a class="btn btn-lg btn-secondary" href="{{ path('admin.category.new') }}">Nouvelle catégorie</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container-fluid admin-category">
+            <div class="row justify-content-center">
+                <h1 class="my-5">Catégories cachées</h1>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+
+                <table class="table table-bordered table-striped table-responsive-md">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories if category.visible == 0 %}
+                            <tr>
+                                <td class="text-center">
+                                    <img src="{{ asset('/img/categories/' ~ category.image) }}"
+                                         alt="{{ category.image }}" class="img-fluid">
+                                </td>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <a href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">Éditer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Nouvelle catégorie' %}
+
+{% block body %}
+    <main role="main">
+        <section class="container">
+            <div class="row"><h1>Nouvelle catégorie</h1></div>
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.name) }}</div>
+                <div class="col-md-6">{{ form_row(form.imageFile) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.visible) }}</div>
+            </div>
+            <button class="btn btn-secondary" type="submit">Créer la catégorie</button>
+            {{ form_end(form) }}
+        </section>
+    </main>
+{% endblock %}
+

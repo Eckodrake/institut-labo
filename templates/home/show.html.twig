@@ -3,15 +3,29 @@
 {% block title category.name %}
 
 {% block body %}
-    <p>Les prestations de {{ category.name }} sont :</p>
+    <main role="main">
+        <div class="container-fluid prestation-title">
+            <div class="container">
+                <div class="row align-items-center">
+                    <h1>{{ category.name }} / Prestations</h1>
+                </div>
+            </div>
+        </div>
 
-    <ul>
-        {% for prestation in prestations %}
-            <li>
-                {{ prestation.name }} --- {{ prestation.price ~ '€' }}
-            </li>
-        {% endfor %}
-    </ul>
+        <div class="container prestation-content">
+            <div class="row flex-column justify-content-center w-100">
+                <ul class="list-unstyled">
+                    {% for prestation in prestations %}
+                        <li class="d-flex py-3">
+                            <div class="col-md-4">{{ prestation.name }}</div>
+                            <div class="col-md-7 dotted d-none d-md-block"></div>
+                            <div class="col-1 text-center">{{ prestation.price ~ '€' }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 
 

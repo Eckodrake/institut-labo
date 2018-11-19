@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PrestationRepository")
+ * @UniqueEntity("name")
  */
 class Prestation {
 	/**
@@ -23,11 +27,13 @@ class Prestation {
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+	 * @Assert\Length(min="3", max="255")
 	 */
 	private $name;
 
 	/**
 	 * @ORM\Column(type="integer")
+	 * @Assert\Range(min="0")
 	 */
 	private $price;
 
@@ -53,6 +59,10 @@ class Prestation {
 		$this->name = $name;
 
 		return $this;
+	}
+
+	public function getSlug(): string {
+		return ( new Slugify() )->slugify( $this->name );
 	}
 
 	public function getPrice(): ?int {

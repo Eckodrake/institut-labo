@@ -1,10 +1,12 @@
 ###> symfony/framework-bundle ###
 /.idea/
+/.sass-cache/
 /.env.local
 /.env.*.local
 /public/bundles/
 /var/
 /vendor/
+/node_modules/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
