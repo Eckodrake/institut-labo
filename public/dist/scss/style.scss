@@ -9,31 +9,76 @@ $ghost: #6d6d6d;
 // ----
 // Base
 // ----
+html {
+  height: 100%;
+}
 body {
-  display: flex;
-  flex-direction: column;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 
-  min-height: 100vh;
-
-  main {
-    flex-grow: 2;
+  nav.nav {
+    grid-row-start: 1;
   }
-
-  footer {
-    flex-grow: 1;
+  main.main {
+    grid-row-start: 2;
   }
+  footer.footer {
+    grid-row-start: 3;
+  }
+}
+::selection {
+  color: $brown;
+  background: $green;
 }
 
 // -----
 // Style
 // -----
 .header {
-  background: linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,.2)), url("/img/background/banner.jpg") no-repeat bottom / cover;
-
   min-height: 85vh;
 
   .row {
     min-height: inherit;
+  }
+}
+
+.play {
+  position: fixed;
+  z-index: 9;
+  right: 10vw;
+  top: -4.5vh;
+
+  width: 3vw;
+  height: 6vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  color: $green;
+  background: $black;
+  border-radius: 0 0 .25rem .25rem;
+
+  transition: top .3s ease;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  &:hover {
+    top: 0;
+  }
+}
+
+.display-info {
+  cursor: help;
+  i {
+    color: $green;
+  }
+  .content-info {
+    display: none;
   }
 }
 
@@ -204,8 +249,69 @@ body {
   }
 }
 
+.curious {
+  min-height: 15vh;
+
+  color: #fff;
+  background: $brown;
+
+  h2 {
+    letter-spacing: .1rem;
+  }
+
+  h6 {
+    letter-spacing: 0.05rem;
+  }
+
+  div {
+    min-height: inherit;
+  }
+}
+
+.products {
+
+  img {
+    min-height: 40vh;
+  }
+
+  .see-all-products {
+    a {
+      font-size: 1.31rem;
+      font-weight: 300;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        margin: auto auto 1rem auto;
+        border-top: .1rem solid $black;
+
+        transition: .5s ease;
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        margin: 1rem auto auto auto;
+        border-bottom: .1rem solid $black;
+
+        transition: .5s ease;
+      }
+
+      &:hover {
+        &:before, &:after {
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+
 .contact {
-  min-height: 65vh;
+  min-height: 45vh;
 
   color: #fff;
   background: $brown;
@@ -288,5 +394,22 @@ body {
         width: 100%;
       }
     }
+  }
+}
+
+.pagination {
+  .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: $green;
+    border-color: $green;
+  }
+}
+
+.page-link {
+  color: $green;
+
+  &:hover {
+    color: darken($green, 5%);
   }
 }

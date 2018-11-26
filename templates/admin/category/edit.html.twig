@@ -3,7 +3,7 @@
 {% block title 'Administration - ' ~ category.name %}
 
 {% block body %}
-    <main role="main">
+    <main role="main" class="main">
         <section class="container">
             <div class="row"><h1>{{ category.name }}</h1></div>
 
@@ -37,6 +37,24 @@
                href="{{ path('admin.prestation.new', {slug: category.slug, id: category.id}) }}">
                 Nouveau service
             </a>
+
+            {% if category.id == 8 %}
+                <h1>Créations photos de &laquo; {{ category.name }} &raquo;</h1>
+                <div class="row mt-5">
+                    {% for creation in creations if category.id == 8 %}
+                        <div class="col-md-4">
+                            <a href="{{ path('admin.creation.edit', {slug: creation.slug, id: creation.id}) }}">
+                                <img src="{{ asset('img/creation/' ~ creation.img) }}" alt="{{ creation.slug }}"
+                                     class="img-thumbnail">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="btn btn-secondary mb-5"
+                   href="{{ path('admin.creation.new', {slug: category.slug, id: category.id}) }}">
+                    Nouvelle création
+                </a>
+            {% endif %}
         </section>
     </main>
 {% endblock %}

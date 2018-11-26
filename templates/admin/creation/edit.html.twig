@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration - ' ~ creation.slug %}
+
+{% block body %}
+    <main role="main" class="main">
+        <section class="container">
+            <div class="row"><h1>{{ creation.slug }}</h1></div>
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.imageFile) }}</div>
+            </div>
+            <button class="btn btn-secondary" type="submit">Éditer</button>
+            {{ form_end(form) }}
+
+            <div class="row float-right clearfix">
+                <form method="post"
+                      action="{{ path('admin.creation.delete', {id: creation.id, slug: creation.slug}) }}"
+                      onsubmit="return confirm('Supprimer la photo ?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ creation.id) }}">
+                    <button class="btn btn-danger" type="submit">Supprimer {{ creation.slug }}</button>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}

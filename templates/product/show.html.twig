@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title product.name %}
+
+{% block body %}
+    <main role="main" class="main">
+
+        <header class="container-fluid prestation-title">
+            <div class="container">
+                <div class="row align-items-center">
+                    <h1>Germaine de Capuccini / {{ product.name }}</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <img class="img-fluid" src="{{ asset('img/products/' ~ product.img) }}" alt="{{ product.img }}" style="max-width: 30vw">
+                </div>
+
+                <div class="col-md-4">
+                    <h3 class="my-3">Description</h3>
+                    <p>{{ product.description | nl2br }}</p>
+
+                    <h3 class="my-3">Prix</h3>
+                    <p>{{ product.price ~ '€' }}</p>
+                </div>
+
+            </div>
+
+            <h3 class="my-4">D'autres produits de Germaine de Cappuccini</h3>
+
+            <div class="row justify-content-around">
+
+                {% for other in other_product %}
+                    <div class="col-md-3 col-sm-6 mb-4">
+                        <a href="{{ path('product.show', {id: other.id, slug: other.slug}) }}" class="card-link text-success">
+                            <figure class="d-flex flex-column align-items-center">
+                                <img class="img-fluid" src="{{ asset('/img/products/' ~ other.img ) }}"
+                                     alt="{{ other.img }}" title="{{ other.name }}">
+                                <figcaption class="other-product-link">{{ other.name }}</figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </main>
+{% endblock %}
+

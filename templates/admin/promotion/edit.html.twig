@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration - ' ~ promotion.name %}
+
+{% block body %}
+    <main role="main" class="main">
+        <section class="container">
+            <div class="row"><h1>{{ promotion.name }}</h1></div>
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.name) }}</div>
+                <div class="col-md-3">{{ form_row(form.price) }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.datetime) }}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.type) }}</div>
+                <div class="col-md-8">{{ form_row(form.description) }}</div>
+            </div>
+            <button class="btn btn-secondary" type="submit">Éditer</button>
+            {{ form_end(form) }}
+
+            <div class="row float-right clearfix">
+                <form method="post"
+                      action="{{ path('admin.promotion.delete', {id: promotion.id, slug: promotion.slug}) }}"
+                      onsubmit="return confirm('Supprimer la promotion ?');">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ promotion.id) }}">
+                    <button class="btn btn-danger" type="submit">Supprimer {{ promotion.name }}</button>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+

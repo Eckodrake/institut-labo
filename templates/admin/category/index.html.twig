@@ -3,13 +3,14 @@
 {% block title 'Administration - Catégories' %}
 
 {% block body %}
-    <main role="main">
-        <section class="container-fluid admin-category">
+    <main role="main" class="main">
+        <section class="container admin-category">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
             <div class="row justify-content-center">
-                <h1 class="my-5">Catégories visibles</h1>
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">{{ message }}</div>
-                {% endfor %}
+                <h1 class="my-5 text-center">Catégories visibles</h1>
 
                 <table class="table table-bordered table-striped table-responsive-md">
                     <thead class="thead-dark">
@@ -22,13 +23,16 @@
                     <tbody>
                         {% for category in categories if category.visible == 1 %}
                             <tr>
-                                <td class="text-center">
+                                <td class="col-4 text-center">
                                     <img src="{{ asset('/img/categories/' ~ category.image) }}"
                                          alt="{{ category.image }}" class="img-fluid">
                                 </td>
                                 <td>{{ category.name }}</td>
-                                <td>
-                                    <a href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">Éditer</a>
+                                <td class="col-1">
+                                    <a class="btn btn-secondary"
+                                       href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">
+                                        Éditer
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -40,9 +44,9 @@
             </div>
         </section>
 
-        <section class="container-fluid admin-category">
+        <section class="container admin-category">
             <div class="row justify-content-center">
-                <h1 class="my-5">Catégories cachées</h1>
+                <h1 class="my-5 text-center">Catégories cachées</h1>
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success">{{ message }}</div>
                 {% endfor %}
@@ -58,13 +62,16 @@
                     <tbody>
                         {% for category in categories if category.visible == 0 %}
                             <tr>
-                                <td class="text-center">
+                                <td class="col-4 text-center">
                                     <img src="{{ asset('/img/categories/' ~ category.image) }}"
                                          alt="{{ category.image }}" class="img-fluid">
                                 </td>
                                 <td>{{ category.name }}</td>
-                                <td>
-                                    <a href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">Éditer</a>
+                                <td class="col-1">
+                                    <a class="btn btn-secondary"
+                                       href="{{ path('admin.category.edit', {slug: category.slug, id: category.id}) }}">
+                                        Éditer
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

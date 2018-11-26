@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Nouvelle création photo' %}
+
+{% block body %}
+    <main role="main" class="main">
+        <section class="container">
+            <div class="row"><h1>Nouvelle création photo</h1></div>
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.imageFile) }}</div>
+            </div>
+            <button class="btn btn-secondary" type="submit">Créer photo</button>
+            {{ form_end(form) }}
+        </section>
+    </main>
+{% endblock %}
+
+

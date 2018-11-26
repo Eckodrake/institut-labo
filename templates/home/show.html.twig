@@ -3,29 +3,70 @@
 {% block title category.name %}
 
 {% block body %}
-    <main role="main">
-        <div class="container-fluid prestation-title">
+    <main role="main" class="main">
+        <header class="container-fluid prestation-title">
             <div class="container">
                 <div class="row align-items-center">
-                    <h1>{{ category.name }} / Prestations</h1>
+                    <h1>{{ category.name }} / Services</h1>
                 </div>
             </div>
-        </div>
+        </header>
 
         <div class="container prestation-content">
-            <div class="row flex-column justify-content-center w-100">
-                <ul class="list-unstyled">
+            <article class="row flex-column justify-content-center w-100">
+                <ul class="list-unstyled d-flex flex-column justify-content-center">
                     {% for prestation in prestations %}
                         <li class="d-flex py-3">
-                            <div class="col-md-4">{{ prestation.name }}</div>
-                            <div class="col-md-7 dotted d-none d-md-block"></div>
+                            <div class="col-md-4">
+                                {{ prestation.name }}
+                                <div class="d-inline display-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="content-info">
+                                        {% if prestation.description is empty %}
+                                            <small>Aucune description disponible</small>
+                                        {% else %}
+                                            <small class="d-block text-justify font-italic">{{ prestation.description }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 dotted d-none d-md-block"></div>
+                            <div class="col-2 text-center">
+                                <time datetime="{{ prestation.time | date('H:i') }}">
+                                    {{ prestation.time | date('G\\h i\\m\\i\\n') }}
+                                </time>
+                            </div>
                             <div class="col-1 text-center">{{ prestation.price ~ '€' }}</div>
                         </li>
                     {% endfor %}
                 </ul>
-            </div>
+            </article>
         </div>
+
+        {% if category.id == 8 %} {# Pack Bride #}
+            <div class="container">
+                <div class="row">
+                    {% for creation in creations if category.id == 8 %}
+                        <div class="col-md-4">
+                            <a href="{{ asset('img/creation/' ~ creation.img) }}" data-toggle="lightbox">
+                                <img src="{{ asset('img/creation/' ~ creation.img) }}" alt="{{ creation.slug }}"
+                                     class="img-fluid">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    </script>
 {% endblock %}
 
 

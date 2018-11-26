@@ -1,14 +1,31 @@
 Name: Nom
 Message: Message
 Email: Email
+New email: Modifier email
+Time: Durée
+Hour: Heure
+Minute: Minute
+Description: Description
 Category name: Nom de la catégorie
 Image file: Image
 Visible: Visible
 yes: oui
 no: non
 Price: Prix
+Password: Mot de passe
+Repeat Password: Confirmer le mot de passe
+New password: Nouveau mot de passe
 Benefit name: Nom du service
 Benefit price: Prix du service
+Benefit description: Description du service
+Benefit time: Durée du service
 Your name: Votre nom
 Insert email: example@domaine.ext
 Write your message: Insérez votre message
+Datetime: Date de fin
+Year: Année
+Month: Mois
+month: mois
+contest: conours
+Day: Jour
+Type: Type de promotion

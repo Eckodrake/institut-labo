@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration' %}
+
+{% block body %}
+    <main role="main" class="main">
+        <section class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            <div class="row justify-content-center my-5">
+                <div class="col-md-6">
+                    {{ form_start(form) }}
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="text-center default-text py-3"><i class="fa fa-user"></i> Compte</h3>
+                            <!--Body-->
+                            <div class="md-form">
+                                <i class="fa fa-envelope prefix grey-text"></i>
+                                {{ form_row(form.email) }}
+                            </div>
+                            <div class="md-form">
+                                <i class="fa fa-lock prefix grey-text"></i>
+                                {{ form_row(form.password) }}
+                            </div>
+                            <div class="text-right my-3">
+                                <small class="text-danger font-italic">l'Édition du compte entraînera une déconnexion.</small>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default waves-effect waves-light">Éditer</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_start(form_back) }}
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="text-center default-text py-3"><i class="fas fa-solar-panel"></i> Background</h3>
+                            <!--Body-->
+                            <div class="md-form">
+                                <i class="fas fa-images"></i>
+                                {{ form_row(form_back.imageFile) }}
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default waves-effect waves-light">Changer</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form_back) }}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

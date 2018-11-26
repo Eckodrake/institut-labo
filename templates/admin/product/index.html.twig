@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration - Produits' %}
+
+{% block body %}
+    <main role="main" class="main">
+        <section class="container admin-category">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            <div class="row justify-content-center">
+                <h1 class="my-5 text-center">Produits Germaine de Capuccini</h1>
+
+                <table class="table table-bordered table-striped table-responsive-md">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td class="col-4 text-center">
+                                    <img src="{{ asset('/img/products/' ~ product.img) }}"
+                                         alt="{{ product.img }}" class="img-fluid">
+                                </td>
+                                <td>{{ product.name }}</td>
+                                <td class="col-1">
+                                    <a class="btn btn-secondary"
+                                       href="{{ path('admin.product.edit', {slug: product.slug, id: product.id}) }}">
+                                        Éditer
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="my-4">
+                    <a class="btn btn-lg btn-secondary" href="{{ path('admin.product.new') }}">Nouveau produit</a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

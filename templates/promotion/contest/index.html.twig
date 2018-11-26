@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Promotions du mois' %}
+
+{% block body %}
+    <main role="main" class="main">
+        <header class="container-fluid prestation-title">
+            <div class="container">
+                <div class="row align-items-center">
+                    <h1>Concours</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="container prestation-content">
+            <article class="row flex-column justify-content-center w-100">
+                <ul class="list-unstyled d-flex flex-column justify-content-center">
+                    {% for promotion in promotions %}
+                        <li class="d-flex py-3">
+                            <div class="col-md-4">
+                                {{ promotion.name }} {% if promotion.price is not null %}/ {{ promotion.price ~ '€' }}{% endif %}
+                                <div class="d-inline display-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div class="content-info">
+                                        {% if promotion.description is empty %}
+                                            <small>Aucune description disponible</small>
+                                        {% else %}
+                                            <small class="d-block text-justify font-italic">{{ promotion.description }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 dotted d-none d-md-block"></div>
+                            <div class="col-3 text-center">
+                                <time datetime="{{ promotion.datetime | date('Y-m-d H:i:s') }}">
+                                    Jusqu'au {{ promotion.datetime | localizeddate('medium', 'short') }}
+                                </time>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </article>
+        </div>
+    </main>
+{% endblock %}

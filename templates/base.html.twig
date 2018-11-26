@@ -17,6 +17,7 @@
         <link rel="mask-icon" href="{{ asset('/img/icons/safari-pinned-tab.svg') }}" color="#5bbad5">
         <link rel="shortcut icon" href="{{ asset('/img/icons/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/ecko-lightbox.min.css') }}">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
               integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
               crossorigin="anonymous">
@@ -44,12 +45,40 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('home.prestation.index') }}#services">Services</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Promotion
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('month.promotion.index') }}">Promo du mois</a>
+                            <a class="dropdown-item" href="{{ path('contest.promotion.index') }}">Concours</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('product.index') }}">Germaine de Capuccini</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home.about.index') }}">À propos</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('home.prestation.index') }}#contact">Contact</a>
                     </li>
                 </ul>
                 {% if app.user %}
                     <ul class="navbar-nav text-md-left text-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administration
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('admin.index', {id: app.user.id}) }}">Compte</a>
+                                <a class="dropdown-item" href="{{ path('admin.category.index') }}">Services</a>
+                                <a class="dropdown-item" href="{{ path('admin.product.index') }}">Produits</a>
+                                <a class="dropdown-item" href="{{ path('admin.promotion.index') }}">Promotions</a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
                         </li>
@@ -62,14 +91,21 @@
 
         <footer role="contentinfo" class="container-fluid footer">
             <div class="container my-md-0 my-3" style="min-height: inherit;">
-                <div class="row justify-content-center align-items-center text-md-left text-center" style="min-height: inherit;">
-                    <div class="col-md-4 d-flex flex-column align-items-md-end align-items-center footer-col">
+                <div class="row justify-content-center align-items-center text-md-left text-center"
+                     style="min-height: inherit;">
+                    <address class="col-md-4 d-flex flex-column align-items-md-end align-items-center footer-col">
                         <div>Institut Labo &laquo; T &raquo;</div>
                         <div>23 rue du bon conseil 7181 Arquennes</div>
                         <div>Téléphone : 0498 54 59 07</div>
-                    </div>
+                    </address>
                     <div class="col-md-4 d-flex flex-column text-center my-md-0 my-3 footer-col">
-                        <div>Copyright &copy; 2018 <a href="{{ path('admin.category.index') }}">Institutlabo-T</a></div>
+                        <div>Copyright &copy; 2018
+                            {% if app.user %}
+                                <a href="{{ path('admin.index', {id: app.user.id}) }}">Institutlabo-T</a>
+                            {% else %}
+                                <a href="{{ path('login') }}">Institutlabo-T</a>
+                            {% endif %}
+                        </div>
                         <div>
                             <a href="https://www.facebook.com/CatherineChaufoureau/?eid=ARBiGMHMDCkGjsSKzc941JYHdxobgQxyHTA04jM5rHdtUfihRZ-SIM3a0zuquf_7biw4iEE9IqrMcmrL&timeline_context_item_type=intro_card_work&timeline_context_item_source=100008311311379&fref=tag"
                                target="_blank">
@@ -85,11 +121,16 @@
                     </div>
                 </div>
             </div>
+
+            {# Music #}
+            <audio id="audio" src="{{ asset('music/audio.mp3') }}" type="audio\mp3" loop></audio>
+            <i id="play" class="play fas fa-volume-off fa-lg"></i>
         </footer>
 
         <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
         <script src="{{ asset('dist/js/popovers.min.js') }}"></script>
         <script src="{{ asset('dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('dist/js/ecko-lightbox.min.js') }}"></script>
         <script src="{{ asset('dist/js/script.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>

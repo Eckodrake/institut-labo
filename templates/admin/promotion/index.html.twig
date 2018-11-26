@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Administration - Catégories' %}
+
+{% block body %}
+    <main role="main" class="main">
+        <section class="container admin-category">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            <div class="row justify-content-center">
+                <h1 class="my-5 text-center">Promotions du mois</h1>
+
+                <table class="table table-bordered table-striped table-responsive-md">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date de fin</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promotion in promotions if promotion.type == 0 %}
+                            <tr>
+                                <td>
+                                    {{ promotion.name }}<br>
+                                    {% if promotion.datetime >= now %}
+                                        <small class="text-success">(En cours)</small>
+                                    {% elseif promotion.datetime < now %}
+                                        <small class="text-warning">(Expirée)</small>
+                                    {% endif %}
+                                </td>
+                                <td class="col-3">
+                                    {{ promotion.datetime | localizeddate('medium', 'short') }}
+                                </td>
+                                <td class="col-1">
+                                    <a class="btn btn-secondary"
+                                       href="{{ path('admin.promotion.edit', {slug: promotion.slug, id: promotion.id}) }}">
+                                        Éditer
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="container admin-category">
+            <div class="row justify-content-center">
+                <h1 class="my-5 text-center">Concours</h1>
+
+                <table class="table table-bordered table-striped table-responsive-md">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Date de fin</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promotion in promotions if promotion.type == 1 %}
+                            <tr>
+                                <td>
+                                    {{ promotion.name }}<br>
+                                    {% if promotion.datetime >= now %}
+                                        <small class="text-success">(En cours)</small>
+                                    {% elseif promotion.datetime < now %}
+                                        <small class="text-warning">(Expirée)</small>
+                                    {% endif %}
+                                </td>
+                                <td class="col-3">
+                                    {{ promotion.datetime | localizeddate('medium', 'short') }}
+                                </td>
+                                <td class="col-1">
+                                    <a class="btn btn-secondary"
+                                       href="{{ path('admin.promotion.edit', {slug: promotion.slug, id: promotion.id}) }}">
+                                        Éditer
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="row justify-content-center my-5">
+                <a class="btn btn-lg btn-secondary" href="{{ path('admin.promotion.new') }}">Nouvelle promotion</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

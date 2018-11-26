@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'À propos' %}
+
+{% block body %}
+    <main role="main" class="main d-flex align-items-center">
+        <section class="container">
+            <div class="row">
+                <blockquote class="clearfix d-md-flex justify-content-around blockquote font-italic">
+                    <img src="{{ asset('img/background/about.gif') }}" alt="À propos" class="img-fluid float-left">
+                    <div class="w-50">
+                        <p class="text-justify">
+                            La vie est une aventure audacieuse ou rien du tout !
+                            Faire face au changement et se comporter comme un esprit libre en présence du destin est une
+                            force invincible.
+                        </p>
+                        <p class="text-justify">
+                            A Martine Polain.<br>
+                            Une esthéticienne pas comme les autres, qui m'a tant donné.
+                        </p>
+                        <p class="text-right">Merci.</p>
+                    </div>
+                </blockquote>
+            </div>
+        </section>
+    </main>
+{% endblock %}

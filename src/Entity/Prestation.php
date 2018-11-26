@@ -37,6 +37,16 @@ class Prestation {
 	 */
 	private $price;
 
+	/**
+	 * @ORM\Column(type="text")
+	 */
+	private $description;
+
+	/**
+	 * @ORM\Column(type="time")
+	 */
+	private $time;
+
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -71,6 +81,26 @@ class Prestation {
 
 	public function setPrice( int $price ): self {
 		$this->price = $price;
+
+		return $this;
+	}
+
+	public function getDescription(): ?string {
+		return $this->description;
+	}
+
+	public function setDescription( string $description ): self {
+		$this->description = $description;
+
+		return $this;
+	}
+
+	public function getTime(): ?\DateTimeInterface {
+		return $this->time;
+	}
+
+	public function setTime( \DateTimeInterface $time ): self {
+		$this->time = $time;
 
 		return $this;
 	}

@@ -3,27 +3,37 @@
 {% block title 'Connexion' %}
 
 {% block body %}
-    <main role="main">
-        <div class="container">
+    <main role="main" class="main">
+        <section class="container">
+            <div class="row justify-content-center my-5">
+                <div class="col-md-6">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-            <h1 class="my-5">Connexion</h1>
-
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
-            {% endif %}
-
-            <form action="{{ path('login') }}" method="post">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="_username" id="email" class="form-control" value="{{ last_username }}">
+                    <form action="{{ path('login') }}" method="post">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="text-center default-text py-3"><i class="fa fa-user"></i> Connexion</h3>
+                            <!--Body-->
+                            <div class="md-form">
+                                <i class="fa fa-envelope prefix grey-text"></i>
+                                <label for="email">Email</label>
+                                <input type="email" name="_username" id="email" class="form-control" value="{{ last_username }}">
+                            </div>
+                            <div class="md-form">
+                                <i class="fa fa-lock prefix grey-text"></i>
+                                <label for="password">Mot de passe</label>
+                                <input type="password" name="_password" id="password" class="form-control">
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-default waves-effect waves-light">Connexion</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" name="_password" id="password" class="form-control">
-                </div>
-
-                <button type="submit" class="btn btn-secondary">Connexion</button>
-            </form>
-        </div>
+            </div>
+        </section>
     </main>
 {% endblock %}
