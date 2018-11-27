@@ -12,6 +12,10 @@
                 <div class="col-md-6">{{ form_row(form.name) }}</div>
                 <div class="col-md-6">{{ form_row(form.price) }}</div>
             </div>
+            <div class="row">
+                <div class="col-md-3">{{ form_row(form.time) }}</div>
+                <div class="col-md-9">{{ form_row(form.description) }}</div>
+            </div>
             <button class="btn btn-secondary" type="submit">Créer service</button>
             {{ form_end(form) }}
         </section>

@@ -70,7 +70,7 @@
                     <article class="col-md-4">
                         <a href="{{ path('product.show', {id: product.id, slug: product.slug}) }}"
                            class="card-link text-black-50">
-                            <figure>
+                            <figure class="d-flex flex-column align-items-center">
                                 <img src="{{ asset('/img/products/' ~ product.img) }}" alt="{{ product.img }}"
                                      class="img-fluid" style="max-width: 20vw; max-height: 10vh;">
                                 <figcaption class="d-flex justify-content-center">

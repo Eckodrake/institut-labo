@@ -6,7 +6,6 @@ use App\Entity\Background;
 use App\Entity\User;
 use App\Form\BackgroundType;
 use App\Form\UserType;
-use App\Repository\BackgroundRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController {
 	/**
-	 * @Route("/administration/profil/{id}", name="admin.index",)
+	 * @Route("/administration/profil/{id}/{background}", name="admin.index", defaults={"background":1})
 	 * @param UserPasswordEncoderInterface $password_encoder
 	 * @param UserRepository $repository
 	 *
@@ -27,13 +26,17 @@ class AdminController extends AbstractController {
 	 *
 	 * @param int $id
 	 *
-	 * @param BackgroundRepository $background_repository
-	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function index( UserPasswordEncoderInterface $password_encoder, UserRepository $repository, Request $request, ObjectManager $manager, Background $background, User $user, int $id, BackgroundRepository $background_repository ) {
+	public function index( UserPasswordEncoderInterface $password_encoder, UserRepository $repository, Request $request, ObjectManager $manager, Background $background, User $user, int $id ) {
 
-		$background_repository = $background_repository->find( 1 );
+
+		if ( $user->getEmail() != $this->getUser()->getEmail() ) :
+			return $this->redirectToRoute( 'admin.index', [
+				'id' => $this->getUser()->getId()
+			], 301 );
+		endif;
+
 
 		$form_back = $this->createForm( BackgroundType::class, $background );
 		$form_back->handleRequest( $request );
@@ -65,10 +68,9 @@ class AdminController extends AbstractController {
 		endif;
 
 		return $this->render( 'admin/index.html.twig', [
-			'background' => $background_repository,
-			'user'       => $catherine,
-			'form'       => $form->createView(),
-			'form_back'  => $form_back->createView()
+			'user'      => $catherine,
+			'form'      => $form->createView(),
+			'form_back' => $form_back->createView()
 		] );
 	}
 }
